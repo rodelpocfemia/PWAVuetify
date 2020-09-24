@@ -2,8 +2,19 @@
 
 import { register } from 'register-service-worker'
 
+console.log('process.env.NODE_ENV: ' + process.env.NODE_ENV)
+console.log('process.env.BASE_URL: ' + process.env.BASE_URL)
+
+if (!('serviceWorker' in navigator)) {
+  console.log('Service Worker not supported')
+  //throw new Error('No Service Worker support!')
+}else{
+  console.log('Service Worker supported')
+}
+
+
 if (process.env.NODE_ENV === 'production') {
-  register(`${process.env.BASE_URL}service-worker.js`, {
+  register('/service-worker.js', {
     ready () {
       console.log(
         'App is being served from cache by a service worker.\n' +
